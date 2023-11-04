@@ -11,15 +11,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="placeorder.js"></script>
  
-    
-    <style>
-        body{
-            background-image: url("termina-back.JPG");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -152,47 +143,44 @@
 </body>
 <script>
     
-    var editFormData;
+var editFormData;
 
 function getFormData() {
     return {
-        // email:document.getElementById("email").value
+        OrderNumber:document.getElementById("orderno").value,
+        MainDishId:document.getElementById("mainDishes").value,
+        SideDishes:document.getElementById("sideDishes").value
+        //desserts:document.getElementById("desserts").value
     }
 }
 function clearFormData() {
-        document.getElementById("name").value = "";
-        document.getElementById("email").value = "";
+        document.getElementById("orderno").value = "";
+        document.getElementById("mainDishes").value="";
+        document.getElementById("sideDishes").value="";
+        document.getElementById("desserts").value="";
 }
 
-function setFormData(name,email) {
-    document.getElementById("name").value = name;
-        document.getElementById("email").value = email;
+function setFormData(orderno,mainDishes,sideDishes,desserts) {
+    document.getElementById("orderno").value = orderno;
+    document.getElementById("mainDishes").value = mainDishes;
+    document.getElementById("sideDishes").value = sideDishes;
+    document.getElementById("desserts").value = desserts;
 }
 
 // set the message for form status
 function setSuccessMessage(message) {
     document.getElementById("message").innerHTML = message;
 }
-function editDataCall(id) {
-    // call get user details by id API
-    fetch("http://localhost:3000/crud/getUserByID?id="+id,{
-        method:"GET"
-    }).then((res)=>res.json()).then((response)=>{
-        console.log("Edit info",response);
-        editFormData =  response[0];
-        setFormData(editFormData.name,editFormData.email)
-    })
-}
 
 // callled this function when user click on button
 function submitForm() {
-        if(!editFormData) addUser(); // if the editFormData is undefined then call addUser()
-        else editData();
+        if(!editFormData) placeOrder();
 }
-// add user function 
-function addUser() {
+
+// place order function
+function placeOrder() {
         let payload  = getFormData();
-        fetch("http://localhost:3000/crud/insertData",{
+        fetch("http://localhost:5000/api/v1/order",{
             method:"POST",
             headers:{
                 "Content-Type":"application/json"
@@ -200,16 +188,16 @@ function addUser() {
             body:JSON.stringify(payload)
         }).then((res)=>res.json()).then((response)=>{
             setSuccessMessage(response.message)
-                // clear input email and name
+                // clear input
                 clearFormData();
-                getData(); // reload table 
+                getAllOrders(); // reload table 
         })
 }
 
 // edit data 
 function editData() {
     var formData = getFormData();
-    formData['id'] = editFormData._id; // get _id from selected user
+    formData['id'] = editFormData._id;
         fetch("http://localhost:3000/crud/updateData",{
             method:"POST",
             headers:{
@@ -219,21 +207,11 @@ function editData() {
         }).then((res)=>res.json()).then((response)=>{
             setSuccessMessage(response.message)
                 clearFormData(); // clear the form field
-                getData() // reload the table
+                getAllOrders() // reload the table
         })
 }
 
-// delete data
-function deleteData(id) {
-    fetch("http://localhost:3000/crud/delete?id="+id).then((res)=>res.json()).then(
-        (response)=>{
-            setSuccessMessage(response.message);
-            getData();
-        }
-    )
-}
-
-// get data method
+// get orders
 
 function getAllOrders() {
                 fetch("http://localhost:5000/api/v1/order").then(
