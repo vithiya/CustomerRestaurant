@@ -18,8 +18,13 @@ Open http://localhost:5000/order to view it in the browser.
 you can use following API end point to test backend
 
 GET /api/v1/order – Will retrieve all order details
+
 GET /api/v1/order/dailySales – Will retrieve total revenue for current date
+
 GET /api/v1/order/famousMainDish – Will retrieve Most famous main dish
+
 GET /api/v1/order/famousSideDish- Will retrieve most famous side dish
+
 GET /api/v1/order/famousDishCombo- Will retrieve famous main dish and side dish combo
+
 POST /api/v1/order- Will create new order
