@@ -72,10 +72,8 @@
                 </div>
             </div>
         </div>
-        <span></span>
-        <span></span>
-        <span></span>
-        <div class="row">
+        
+        <div class="row" style="margin-top: 100px">
             <div class="col-md-4">
                         <div class="card">
                             <div class="card-header">
@@ -89,25 +87,25 @@
                                 <div class="form-group">
                                     <label for="MainDish">Select Main Dish:</label>
                                     <select name="mainDishes" id="mainDishes">
-                                        <option value="1">Rice</option>
-                                        <option value="2">Rotty</option>
-                                        <option value="3">Noodles</option>
+                                        <option value='{"Id":"1","Price":"100"}'>Rice</option>
+                                        <option value='{"Id":"2","Price":"20"}'>Rotty</option>
+                                        <option value='{"Id":"3","Price":"150"}'>Noodles</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="SideDish">Select Side Dish:</label>
                                     <select name="sideDishes" id="sideDishes">
-                                        <option value="4">Wadai</option>
-                                        <option value="5">Dhal Curry</option>
-                                        <option value="6">Fish Curry</option>
+                                        <option value='{"Id":"4","Price":"45"}'>Wadai</option>
+                                        <option value='{"Id":"5","Price":"75"}'>Dhal Curry</option>
+                                        <option value='{"Id":"6","Price":"120"}'>Fish Curry</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Desserts">Select Desserts:</label>
                                     <select name="desserts" id="desserts">
-                                        <option value="4">Watalappam</option>
-                                        <option value="5">Jelly</option>
-                                        <option value="6">Pudding</option>
+                                        <option value='{"Id":"4","Price":"40"}'>Watalappam</option>
+                                        <option value='{"Id":"5","Price":"20"}'>Jelly</option>
+                                        <option value='{"Id":"6","Price":"25"}'>Pudding</option>
                                     </select>
                                 </div>
                 
@@ -148,10 +146,16 @@ var editFormData;
 function getFormData() {
     return {
         OrderNumber:document.getElementById("orderno").value,
-        MainDishId:document.getElementById("mainDishes").value,
-        SideDishes:document.getElementById("sideDishes").value
+        MainDishId:JSON.parse(document.getElementById("mainDishes").value).Id,
+        SideDishes:document.getElementById("sideDishes").value,
+        Total:calculateTotal()
         //desserts:document.getElementById("desserts").value
     }
+}
+function calculateTotal() {
+    return Number(JSON.parse(document.getElementById("mainDishes").value).Price) +
+           Number(JSON.parse(document.getElementById("sideDishes").value).Price) +
+           Number (JSON.parse(document.getElementById("desserts").value).Price);
 }
 function clearFormData() {
         document.getElementById("orderno").value = "";
@@ -208,6 +212,11 @@ function editData() {
             setSuccessMessage(response.message)
                 clearFormData(); // clear the form field
                 getAllOrders() // reload the table
+                getDailySalesRevenue();
+                getFamousMainDish();
+                getFamousSideDish();
+                getFamousDishCombo();
+
         })
 }
 
