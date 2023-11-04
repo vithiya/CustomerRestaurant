@@ -70,25 +70,10 @@ exports.createNewOrder = (req, res) =>{
     if(req.body.constructor === Object && Object.keys(req.body).length === 0){
         res.send(400).send({success: false, message: 'Please fill all fields'});
     }else{
-        OrderModel.createOrder(fullOrderReqData, (err, order)=>{
+            OrderModel.createOrder(fullOrderReqData, (err, order)=>{
             if(err)
             res.send(err);
             res.json({status: true, message: 'Order Created Successfully', data: order.insertId})
         })
     }
 }
-
-/* exports.createNewOrder = (req, res) =>{
-    const orderReqData = new OrderModel(req.body);
-    console.log('orderReqData', orderReqData);
-    // check null
-    if(req.body.constructor === Object && Object.keys(req.body).length === 0){
-        res.send(400).send({success: false, message: 'Please fill all fields'});
-    }else{
-        OrderModel.createOrder(orderReqData, (err, order)=>{
-            if(err)
-            res.send(err);
-            res.json({status: true, message: 'Order Created Successfully', data: order.insertId})
-        })
-    }
-} */
