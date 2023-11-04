@@ -4,16 +4,23 @@ Node Mysql food ordering web application
 In this repo I have created the restful api using nodejs, express and mysql.Front end page using html javascript and css
 
 Author : Vithiya
+
 MySQL configuration
+
 Please create database, use config/dbscript.sql to create tables and make the changes in the config/db.config.js file.
 
 In the project directory, you can run:
 
 npm install
+
 This will install the dependencies inside node_modules
+
 npm start
+
 Runs the app in the development mode.
+
 Open http://localhost:5000/order to view it in the browser.
+
 
 you can use following API end point to test backend
 
