@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "bd1f2257-19eb-419f-bdc1-e687b63913d0",
+		"name": "CustomerRestaurant",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1962195"
+	},
+	"item": [
+		{
+			"name": "GetOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "OrderNumber",
+							"value": "0001",
+							"type": "text"
+						},
+						{
+							"key": "MainDishId",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "Total",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetDailySalesRevenue",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order/dailySales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"dailySales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FamousMainDish",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order/famousMainDish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"famousMainDish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FamousSideDish",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order/famousSideDish",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"famousSideDish"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DishCombo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/v1/order/famousDishCombo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"order",
+						"famousDishCombo"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
