@@ -91,7 +91,7 @@ Order.createOrder = (fullOrderReqData, result) =>{
     console.log('fullOrderReqData'+JSON.stringify(fullOrderReqData));
     dbConn.query('INSERT INTO orders SET ? ', orderReqData, (err, res)=>{
         if(err){
-            console.log('Error while inserting data');
+            console.log('Error while inserting data'+err.message);
             result(null, err);
         }else{
             
@@ -99,10 +99,10 @@ Order.createOrder = (fullOrderReqData, result) =>{
             const lastInsertedId = res.insertId;
             
             console.log('orderId'+lastInsertedId);
-            console.log('sidedishes'+sideDishes1);
+            console.log('sidedishes'+sideDishes);
             dbConn.query(
                 'INSERT INTO sidedishdetails (OrderID, SideDishID,Quantity) VALUES ?',
-                [sideDishes1.map(sideDish => [lastInsertedId, sideDish,1])],
+                [sideDishes.map(sideDish => [lastInsertedId, sideDish,1])],
                 (err, res) => {
                     if(err){
                         console.log('Error while inserting side dish data'+err.message);

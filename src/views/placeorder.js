@@ -1,18 +1,30 @@
 var editFormData;
 
 function getFormData() {
+    var siddishSelect =document.getElementById("sideDishes");
+    var sideDishResults = getSelectValues(siddishSelect);
     return {
         OrderNumber:document.getElementById("orderno").value,
         MainDishId:JSON.parse(document.getElementById("mainDishes").value).Id,
-        SideDishes:document.getElementById("sideDishes").value,
-        Total:calculateTotal()
+        SideDishes:getSideDishIds(sideDishResults),
+        Total:calculateTotal(sideDishResults)
         //desserts:document.getElementById("desserts").value
     }
 }
-function calculateTotal() {
+function calculateTotal(sideDishResults) {
+    var sideDishTotal=calculateSideDishTotal(sideDishResults);
     return Number(JSON.parse(document.getElementById("mainDishes").value).Price) +
-           Number(JSON.parse(document.getElementById("sideDishes").value).Price) +
+           sideDishTotal +
            Number (JSON.parse(document.getElementById("desserts").value).Price);
+}
+
+function calculateSideDishTotal(sideDishResults){
+    var total=0;
+    for (var key in sideDishResults) {
+        var obj = sideDishResults[key];
+        total=total+Number(JSON.parse(obj).Price);
+    }
+    return total;
 }
 function clearFormData() {
         document.getElementById("orderno").value = "";
@@ -147,3 +159,26 @@ function getFamousDishCombo() {
 }
 
 getFamousDishCombo();
+
+function getSelectValues(select) {
+    var result = [];
+    var options = select && select.options;
+    var opt;
+  
+    for (var i=0, iLen=options.length; i<iLen; i++) {
+      opt = options[i];
+  
+      if (opt.selected) {
+        result.push(opt.value || opt.text);
+      }
+    }
+    return result;
+  }
+function getSideDishIds(sideDishResults){
+    var sideDishIds=[];
+    for (var key in sideDishResults) {
+        var obj = sideDishResults[key];
+        sideDishIds.push(JSON.parse(obj).Id);
+    }
+    return sideDishIds;
+}
