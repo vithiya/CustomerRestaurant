@@ -1,6 +1,6 @@
 const express =require('express');
 const bodyParser = require('body-parser');
-const placeorder = require('./src/views/placeorder');
+const path = require('path');
 
 //create express app
 const app=express();
@@ -15,6 +15,8 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // parse request data content type application/json
 app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'src')));
 
 //define root route
 app.get('/',(req,res)=>{
